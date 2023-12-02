@@ -14,11 +14,12 @@ training:
   gradient_accumulation_steps: 5
   optim: paged_adamw_32bit
   save_steps: 50
-  logging_steps: 10
+  # logging_steps: 10
+  logging_steps: 1
   learning_rate: 6.0e-5
   max_grad_norm: 0.3
-  max_steps: 50
-  num_train_epochs: 3
+  max_steps: 5
+  # num_train_epochs: 3
   warmup_ratio: 0.03
   lr_scheduler_type: linear
 

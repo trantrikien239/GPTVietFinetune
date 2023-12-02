@@ -29,9 +29,11 @@ args = parser.parse_args()
 
 # Login to wandb and huggingface
 if args.wandb_key is not None:
+    print("====== Logging into wandb ======")
     wandb.login(key=args.wandb_key)
-if args.huggingface_key is None:
-    huggingface_hub.login(token=args.huggingface_key)
+if args.huggingface_key is not None:
+    print("====== Logging into huggingface ======")
+    huggingface_hub.login(args.huggingface_key)
 
 
 # Load training arguments from the config file, config is a yaml file
