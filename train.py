@@ -18,7 +18,7 @@ import huggingface_hub
 # Parse training arguments
 parser = argparse.ArgumentParser(description='Train a model on a dataset')
 # parser.add_argument('--base_model', type=str, help='the huggingface model to use as a base')
-# parser.add_argument('--dataset', type=str, default='data/clean/health_qa_train.parquet', help='the dataset to use for fine-tuning')
+parser.add_argument('--dataset', type=str, help='the dataset to use for fine-tuning')
 parser.add_argument('--config', type=str, default='configs/light.yaml', help='the config file to use for training')
 parser.add_argument('--wandb_key', type=str, help='key for wandb login')
 parser.add_argument('--huggingface_key', type=str, help='key for huggingface login')
@@ -44,7 +44,7 @@ else:
     raise ValueError("No config file specified")
 
 BASE_MODEL_PATH = config['base_model']
-DATASET_PATH = config['dataset']
+DATASET_PATH = args.dataset if args.dataset is not None else config['dataset']
 MAX_LENGTH = config['max_length']
 
 # Load the dataset
