@@ -1,0 +1,26 @@
+base_model: vinai/PhoGPT-7B5-Instruct
+dataset: data/clean/health_qa_train.parquet
+max_length: 1024
+
+lora:
+  lora_alpha: 16
+  lora_dropout: 0.1
+  r: 64
+  bias: none
+  task_type: CAUSAL_LM
+
+training:
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 8
+  optim: paged_lion_32bit
+  save_steps: 20
+  logging_steps: 10
+  # logging_steps: 1
+  learning_rate: 6.0e-5
+  max_grad_norm: 0.3
+  # max_steps: 5
+  num_train_epochs: 10
+  warmup_ratio: 0.06
+  lr_scheduler_type: cosine
+
+  

@@ -1,17 +1,20 @@
+import os
 import argparse
 import yaml
 
 import torch
-import pandas as pd
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, AutoTokenizer
 from transformers import TrainingArguments
+from tokenizers.processors import TemplateProcessing
 from peft import LoraConfig
 from trl import SFTTrainer
 from datasets import load_dataset
 
 import wandb
 import huggingface_hub
+
+from utils import template_train
 
 
 
@@ -69,6 +72,7 @@ model.config.use_cache = False
 
 tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL_PATH, trust_remote_code=True,
     truncation=True, max_length=MAX_LENGTH)
+tokenizer._tokenizer.post_processor = template_train(tokenizer)
 
 # Load configs for training
 print("====== Loading configs ======")
@@ -102,3 +106,6 @@ for name, module in trainer.model.named_modules():
 wandb.init(project="GPTVietFinetune", config=config)
 print("====== Training ======")
 trainer.train()
+
+# Save last checkpoint
+trainer.model.save_pretrained(os.path.join(args.output_dir, "final"))
