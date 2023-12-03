@@ -6,7 +6,6 @@ import torch
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, AutoTokenizer
 from transformers import TrainingArguments
-from tokenizers.processors import TemplateProcessing
 from peft import LoraConfig
 from trl import SFTTrainer
 from datasets import load_dataset
@@ -73,6 +72,7 @@ model.config.use_cache = False
 tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL_PATH, trust_remote_code=True,
     truncation=True, max_length=MAX_LENGTH)
 tokenizer._tokenizer.post_processor = template_train(tokenizer)
+tokenizer.pad_token = tokenizer.eos_token
 
 # Load configs for training
 print("====== Loading configs ======")

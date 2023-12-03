@@ -8,11 +8,20 @@ prompt_instruct = """Dưới đây là một câu hỏi về sức khoẻ. Hãy 
 
 """ + prompt_qa
 
+prompt_instruct_gen = """Dưới đây là một câu hỏi về sức khoẻ. Hãy viết một câu trả lời phù hợp.
+
+""" + prompt_basic
+
 
 def get_text(x, prompt=prompt_instruct):
     return prompt.format(
         main_question=x['main_question'], 
         answers=x['answers']
+    )
+
+def get_text_gen(x, prompt=prompt_instruct_gen):
+    return prompt.format(
+        main_question=x['main_question']
     )
 
 

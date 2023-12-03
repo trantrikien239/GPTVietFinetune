@@ -16,11 +16,9 @@ training:
   save_steps: 20
   logging_steps: 10
   # logging_steps: 1
-  learning_rate: 6.0e-5
+  learning_rate: 1.0e-4
   max_grad_norm: 0.3
   # max_steps: 5
   num_train_epochs: 10
-  warmup_ratio: 0.06
-  lr_scheduler_type: cosine
-
-  
+  warmup_ratio: 0.05
+  lr_scheduler_type: linear
